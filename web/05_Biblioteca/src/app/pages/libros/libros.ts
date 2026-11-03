@@ -1,9 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { LibrosService } from '../../services/libros.service';
 
 @Component({
-  imports: [],
   selector: 'app-libros',
-  styleUrl: './libros.css',
+  imports: [RouterLink],
   templateUrl: './libros.html',
+  styleUrl: './libros.css'
 })
-export class Libros {}
+export class Libros {
+
+  private librosService = inject(LibrosService);
+
+  genero = input<string>();
+
+  libros = computed(() =>
+    this.librosService.obtenerTodos(this.genero())
+  );
+}

@@ -1,35 +1,37 @@
-
 import { Routes } from '@angular/router';
 
+import { Inicio } from './pages/inicio/inicio';
+import { Autores } from './pages/autores/autores';
+import { Libros } from './pages/libros/libros';
+import { DetalleLibro } from './pages/libros/detalle-libro/detalle-libro';
+import { NoEncontrado } from './pages/no-encontrado/no-encontrado';
+
+import { MiCuenta } from './pages/mi-cuenta/mi-cuenta';
+import { Perfil } from './pages/mi-cuenta/perfil/perfil';
+import { Prestamos } from './pages/mi-cuenta/prestamos/prestamos';
+
 export const routes: Routes = [
+
+  { path: 'inicio', component: Inicio },
+
+  { path: 'autores', component: Autores },
+
+  { path: 'libros', component: Libros },
+
+  { path: 'libros/:id', component: DetalleLibro },
+
   {
-    path: 'inicio',
-    loadComponent: () =>
-      import('./pages/inicio/inicio').then(m => m.Inicio)
+    path: 'mi-cuenta',
+    component: MiCuenta,
+    children: [
+      { path: '', redirectTo: 'perfil', pathMatch: 'full' },
+      { path: 'perfil', component: Perfil },
+      { path: 'prestamos', component: Prestamos }
+    ]
   },
-  {
-    path: 'libros',
-    loadComponent: () =>
-      import('./pages/libros/libros').then(m => m.Libros)
-  },
-  {
-    path: 'autores',
-    loadComponent: () =>
-      import('./pages/autores/autores').then(m => m.Autores)
-  },
-  {
-    path: '404',
-    loadComponent: () =>
-      import('./pages/no-encontrado/no-encontrado')
-        .then(m => m.NoEncontrado)
-  },
-  {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'inicio'
-  },
-  {
-    path: '**',
-    redirectTo: '404'
-  }
+
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+
+  { path: '**', component: NoEncontrado }
+
 ];

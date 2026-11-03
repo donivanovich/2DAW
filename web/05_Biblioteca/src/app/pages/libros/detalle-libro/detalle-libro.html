@@ -1,0 +1,23 @@
+@if (libro(); as libroActual) {
+
+  <h1>{{ libroActual.titulo }}</h1>
+
+  <p>Autor: {{ libroActual.autor }}</p>
+
+  <p>Género: {{ libroActual.genero }}</p>
+
+  <button (click)="siguienteLibro()">
+    Siguiente libro
+  </button>
+
+  <button (click)="irAMiCuenta()">
+    Ir a mi cuenta
+  </button>
+
+} @else {
+
+  <h1>Libro no encontrado</h1>
+
+  <a routerLink="/libros">Volver a los libros</a>
+
+}
