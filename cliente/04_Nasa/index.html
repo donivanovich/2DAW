@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Explorador espacial NASA</title>
+        <link rel="stylesheet" href="styles.css">
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <main>
+            <section>
+                <h2>Imagen astronómica del día</h2>
+
+                <button id="boton-apod" type="button">Consultar imagen</button>
+
+                <div id="resultado-apod"></div>
+            </section>
+
+            <section>
+                <h2>Buscar imágenes espaciales</h2>
+
+                <form id="formulario-busqueda">
+                    <label for="busqueda">Escribe qué imagen quieres buscar:</label>
+                    <input type="text" id="busqueda" required>
+
+                    <button type="submit">Buscar imágenes</button>
+                </form>
+
+                <div id="resultado-galeria"></div>
+            </section>
+
+            <section>
+                <h2>Consultar asteroides cercanos</h2>
+
+                <form id="formulario-asteroides">
+                    <label for="fecha-asteroides">Selecciona una fecha:</label>
+                    <input type="date" id="fecha-asteroides" required>
+
+                    <button type="submit">Consultar asteroides</button>
+                </form>
+
+                <div id="resultado-asteroides"></div>
+            </section>
+
+            <section>
+                <h2>Enviar un favorito</h2>
+
+                <form id="formulario-favorito">
+                    <label for="nombre-favorito">Escribe el nombre de tu elemento favorito:</label>
+                    <input type="text" id="nombre-favorito" required>
+
+                    <button type="submit">Enviar favorito</button>
+                </form>
+
+                <p id="mensaje-favorito"></p>
+            </section>
+
+            <section>
+                <h2>Enviar una observación</h2>
+
+                <form id="formulario-observacion">
+                    <label for="titulo-observacion">Título de la observación:</label>
+                    <input type="text" id="titulo-observacion" required>
+
+                    <label for="descripcion-observacion">Descripción:</label>
+                    <textarea id="descripcion-observacion" required></textarea>
+
+                    <button type="submit">Enviar observación</button>
+                </form>
+
+                <p id="mensaje-observacion"></p>
+            </section>
+        </main>
+    </body>
+</html>
