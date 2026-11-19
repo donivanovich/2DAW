@@ -1,0 +1,169 @@
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.menu {
+  background-color: #ef5350;
+  color: white;
+  padding: 16px 24px;
+}
+
+.menu-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.menu-logo {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.menu-list {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-list a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.menu-list a:hover {
+  text-decoration: underline;
+}
+
+.main-content {
+  flex: 1;
+  padding: 24px;
+  text-align: left;
+}
+
+.main-content h1 {
+  font-size: 32px;
+  margin-top: 0;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.seccion {
+  margin-bottom: 40px;
+}
+
+.seccion h2 {
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+.subtitulo-seccion {
+  margin-bottom: 16px;
+  font-size: 15px;
+}
+
+.grid-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  background-color: var(--code-bg);
+}
+
+.ficha-resumida:hover {
+  border-color: #ef5350;
+}
+
+.pokemon-nombre,
+.ficha-completa h3,
+.ficha-movimiento h3 {
+  text-transform: capitalize;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  color: var(--text-h);
+}
+
+.badge-tipo {
+  display: inline-block;
+  background-color: #ef5350;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-right: 6px;
+  text-transform: capitalize;
+}
+
+.sprites-list {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.sprites-list img {
+  width: 96px;
+  height: 96px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.seccion-datos {
+  margin-top: 16px;
+}
+
+.seccion-datos h4 {
+  margin: 0 0 8px 0;
+  color: var(--text-h);
+}
+
+.seccion-datos ul,
+.ficha-movimiento ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.lista-etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-height: 160px;
+  overflow-y: auto;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+}
+
+.etiqueta {
+  font-size: 13px;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--code-bg);
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 16px 24px;
+  text-align: center;
+  font-size: 14px;
+  background-color: var(--code-bg);
+}
+
+.footer a {
+  color: #ef5350;
+}
