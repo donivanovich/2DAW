@@ -10,8 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as HomeRouteImport } from './routes/home'
 import { Route as BuildRouteImport } from './routes/build'
+import { Route as HomeRouteImport } from './routes/home'
 import { Route as SeasonTeamsAbbreviationRouteRouteImport } from './routes/$season/teams/$abbreviation/route'
 import { Route as SeasonTeamsAbbreviationIndexRouteImport } from './routes/$season/teams/$abbreviation/index'
 import { Route as SeasonTeamsAbbreviationSlugRouteImport } from './routes/$season/teams/$abbreviation/$slug'
@@ -21,14 +21,14 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HomeRoute = HomeRouteImport.update({
-  id: '/home',
-  path: '/home',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const BuildRoute = BuildRouteImport.update({
   id: '/build',
   path: '/build',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SeasonTeamsAbbreviationRouteRoute =

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="ballGrad" cx="34%" cy="28%" r="72%" fx="34%" fy="28%">
+      <stop offset="0%" stop-color="#fdba74" />
+      <stop offset="28%" stop-color="#fb923c" />
+      <stop offset="72%" stop-color="#ea580c" />
+      <stop offset="100%" stop-color="#9a3412" />
+    </radialGradient>
+    <clipPath id="ballClip">
+      <circle cx="32" cy="32" r="28" />
+    </clipPath>
+  </defs>
+
+  <!-- Main basketball sphere -->
+  <circle cx="32" cy="32" r="28" fill="url(#ballGrad)" />
+
+  <!-- Basketball seams -->
+  <g
+    clip-path="url(#ballClip)"
+    transform="rotate(-18 32 32)"
+    fill="none"
+    stroke="#0b0d12"
+    stroke-width="3.8"
+    stroke-linecap="round"
+  >
+    <line x1="32" y1="2" x2="32" y2="62" />
+    <line x1="2" y1="32" x2="62" y2="32" />
+    <circle cx="-2" cy="32" r="23" />
+    <circle cx="66" cy="32" r="23" />
+  </g>
+
+  <!-- Crisp outer border -->
+  <circle
+    cx="32"
+    cy="32"
+    r="28"
+    fill="none"
+    stroke="#0b0d12"
+    stroke-width="3.8"
+  />
+</svg>
