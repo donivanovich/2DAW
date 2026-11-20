@@ -1,75 +1,251 @@
-.input {
+.filters {
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
-  font-family: Arial, sans-serif;
-  width: 100%;
+  height: 100%;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
 }
 
-.input label {
-  margin-top: 20px;
+.filters-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  position: sticky;
+  top: 0;
+  background-color: var(--bg-surface);
+  z-index: 5;
+}
+
+.filters-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filters-icon-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background-color: var(--brand-primary-light);
+  color: var(--brand-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.filters-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.filters-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.filters-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filters-reset-btn {
+  padding: 5px 10px;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: #ffffff;
-  font-size: bold;
-  font-size: clamp(0.1rem, 4.5vw);
+  color: var(--text-secondary);
+  background-color: var(--bg-surface-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xs);
+  transition: all var(--transition-fast);
 }
 
-.input select {
-  margin: 20px;
-  font-weight: bold;
-  padding: 6px 10px;
-  font-size: 0.9rem;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-  background-color: #fff;
-  color: #000;
-  font-size: clamp(0.5rem, 2.5vw, 1rem);
-  margin: clamp(10px, 5%, 20px);;
-  transition: all 0.2s;
+.filters-reset-btn:hover {
+  color: var(--brand-primary);
+  background-color: var(--brand-primary-light);
+  border-color: var(--brand-primary-border);
 }
 
-
-.input select:hover,
-.input select:focus {
-  border-color: #aaa;
-  outline: none;
-  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+.close-filters {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface-subtle);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
 }
 
-.filters-container {
+.close-filters:hover {
+  background-color: var(--bg-surface-muted);
+  color: var(--text-primary);
+}
+
+.filters-body {
+  padding: 16px 20px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.filter-section {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.close-filters {
-  display: none;
-  border-radius: 20px;
-  border: 1px solid #fff;
-  height: 35px;
-  width: 35px;
-  background-color: transparent;
+.filter-section + .filter-section {
+  padding-top: 16px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.input label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  text-align: left;
+}
+
+.input select {
+  width: 100%;
+  height: 38px;
+  padding: 0 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.input select:hover {
+  border-color: var(--border-default);
+}
+
+.input select:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 3px rgba(227, 53, 13, 0.12);
+}
+
+/* Region Pills */
+.region-pills-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.region-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 7px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  text-align: left;
+  transition: all var(--transition-fast);
+}
+
+.region-pill:hover {
+  background-color: var(--bg-surface-subtle);
+  border-color: var(--border-default);
+}
+
+.region-pill.active {
+  background-color: var(--brand-primary-light);
+  border-color: var(--brand-primary);
+  color: var(--brand-primary);
+}
+
+.region-pill-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.region-pill-range {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.region-pill.active .region-pill-range {
+  color: var(--brand-primary);
+  opacity: 0.85;
+}
+
+/* Type Filter Chips Grid */
+.type-chips-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.type-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-surface);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  text-align: left;
+}
+
+.type-filter-chip:hover {
+  background-color: var(--bg-surface-subtle);
+  border-color: var(--border-default);
+  color: var(--text-primary);
+}
+
+.type-filter-chip.active {
+  background-color: var(--text-primary);
+  border-color: var(--text-primary);
+  color: #ffffff;
+  box-shadow: var(--shadow-xs);
+}
+
+.type-chip-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
   flex-shrink: 0;
 }
 
-.close-filters:hover {
-  cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.2);
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  border-color: #fff;
+.type-chip-dot.all-dot {
+  background: conic-gradient(#e3350d, #3b82f6, #10b981, #f59e0b, #e3350d);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
   .close-filters {
-    display: block;
-    margin: 20px auto;
-    width: clamp(25px, 5vw, 30px);
-    height: clamp(25px, 5vw, 30px);
-  }
-
-  .icon{
-    width: clamp(20px, 5vw, 30px);
-    height: clamp(20px, 5vw, 30px);
+    display: inline-flex;
   }
 }

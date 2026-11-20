@@ -3,6 +3,7 @@ import "../styles/login.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import usersData from "../mocks/users.json";
+import logo from "../assets/logo.png";
 
 function Login({ onLogin }) {
   const navigate = useNavigate();
@@ -12,87 +13,195 @@ function Login({ onLogin }) {
   const [error, setError] = useState("");
   const [isSignup, setIsSignup] = useState(false);
 
+  const getStoredUsers = () => {
+    try {
+      return JSON.parse(localStorage.getItem("mockUsers")) || usersData.users;
+    } catch {
+      return usersData.users;
+    }
+  };
+
+  const completeLogin = (userObj) => {
+    localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("currentUser", JSON.stringify(userObj));
+    if (onLogin) onLogin();
+    navigate("/");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError("");
+
+    const allUsers = getStoredUsers();
+    const cleanEmail = email.trim();
+
+    if (!cleanEmail || !password.trim()) {
+      setError("Por favor, introduce tu correo electrónico y contraseña.");
+      return;
+    }
 
     if (isSignup) {
-      const existingUser = usersData.users.find(u => u.email === email);
+      if (!fullName.trim()) {
+        setError("Por favor, introduce tu nombre completo.");
+        return;
+      }
+
+      const existingUser = allUsers.find(
+        (u) => u.email.toLowerCase() === cleanEmail.toLowerCase()
+      );
       if (existingUser) {
-        setError("Email already exists");
+        setError("Este correo electrónico ya está registrado.");
         return;
       }
 
       const newUser = {
         image: "https://randomuser.me/api/portraits/lego/1.jpg",
-        fullName,
-        username: email.split("@")[0],
-        email,
+        fullName: fullName.trim(),
+        username: cleanEmail.split("@")[0],
+        email: cleanEmail,
         password
       };
 
-      const updatedUsers = [...usersData.users, newUser];
+      const updatedUsers = [...allUsers, newUser];
       localStorage.setItem("mockUsers", JSON.stringify(updatedUsers));
-
-      localStorage.setItem("loggedIn", "true");
-      localStorage.setItem("currentUser", JSON.stringify(newUser));
-      onLogin();
-      navigate("/");
+      completeLogin(newUser);
     } else {
-      const users = JSON.parse(localStorage.getItem("mockUsers")) || usersData.users;
-      const user = users.find(u => u.email === email && u.password === password);
+      const user = allUsers.find(
+        (u) =>
+          u.email.toLowerCase() === cleanEmail.toLowerCase() &&
+          u.password === password
+      );
 
       if (user) {
-        localStorage.setItem("loggedIn", "true");
-        localStorage.setItem("currentUser", JSON.stringify(user));
-        onLogin();
-        navigate("/");
+        completeLogin(user);
       } else {
-        setError("Email or password incorrect");
+        setError("Correo electrónico o contraseña incorrectos.");
       }
     }
   };
 
+  const handleDemoLogin = (demoUser) => {
+    setEmail(demoUser.email);
+    setPassword(demoUser.password);
+    setError("");
+    completeLogin(demoUser);
+  };
+
   return (
     <div className="login-container">
-      <form onSubmit={handleSubmit}>
-        <h2>{isSignup ? "Sign Up" : "Login"}</h2>
+      <div className="login-card">
+        <div className="login-brand-header">
+          <img src={logo} alt="Logo de Pokémon" className="login-logo" />
+          <span className="login-badge">POKÉDEX NACIONAL</span>
+          <h2>{isSignup ? "Crear Cuenta de Entrenador" : "Bienvenido de nuevo, Entrenador"}</h2>
+          <p className="login-subtitle">
+            {isSignup
+              ? "Registrate como entrenador para crear tu equipo y guardar a tus Pokémon favoritos."
+              : "Inicia sesión para descubrir los 1025 Pokémon de las 9 regiones y gestiona tu equipo."}
+          </p>
+        </div>
 
-        {isSignup && (
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={fullName}
-            onChange={e => setFullName(e.target.value)}
-          />
-        )}
+        <form onSubmit={handleSubmit} className="login-form" noValidate>
+          {isSignup && (
+            <div className="login-field">
+              <label htmlFor="login-fullname">Nombre completo</label>
+              <input
+                id="login-fullname"
+                type="text"
+                placeholder="Nombre completo"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                autoComplete="name"
+              />
+            </div>
+          )}
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-        <button type="submit">{isSignup ? "Sign Up" : "Login"}</button>
+          <div className="login-field">
+            <label htmlFor="login-email">Correo electrónico</label>
+            <input
+              id="login-email"
+              type="email"
+              placeholder="Correo electrónico"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
+            />
+          </div>
 
-        {error && <p style={{color: "red"}}>{error}</p>}
+          <div className="login-field">
+            <label htmlFor="login-password">Contraseña</label>
+            <input
+              id="login-password"
+              type="password"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete={isSignup ? "new-password" : "current-password"}
+            />
+          </div>
 
-        <p
-          className="toggle-signup"
-          style={{ cursor: "pointer", color: "#e60023", marginTop: "1rem", textAlign: "center" }}
-          onClick={() => {
-            setIsSignup(!isSignup);
-            setError("");
-          }}
-        >
-          {isSignup ? "Already have an account? Login" : "Don't have an account? Sign Up"}
-        </p>
-      </form>
+          {error && (
+            <div className="login-error" role="alert">
+              <span>{error}</span>
+            </div>
+          )}
+
+          <button type="submit" className="login-submit-btn">
+            {isSignup ? "Registrarse" : "Iniciar sesión"}
+          </button>
+
+          <p
+            className="toggle-signup"
+            role="button"
+            tabIndex={0}
+            onClick={() => {
+              setIsSignup(!isSignup);
+              setError("");
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setIsSignup(!isSignup);
+                setError("");
+              }
+            }}
+          >
+            {isSignup
+              ? "¿Ya tienes una cuenta? Inicia sesión"
+              : "¿No tienes una cuenta? Regístrate"}
+          </p>
+        </form>
+
+        <div className="login-demo-section">
+          <div className="demo-divider">
+            <span>Acceso Rápido</span>
+          </div>
+          <div className="demo-trainers-grid">
+            {usersData.users.slice(0, 2).map((demoUser) => (
+              <button
+                key={demoUser.email}
+                type="button"
+                className="demo-trainer-btn"
+                onClick={() => handleDemoLogin(demoUser)}
+              >
+                <img
+                  src={demoUser.image}
+                  alt={demoUser.fullName}
+                  className="demo-trainer-avatar"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = "/favicon.svg";
+                  }}
+                />
+                <div className="demo-trainer-info">
+                  <span className="demo-trainer-name">{demoUser.fullName}</span>
+                  <span className="demo-trainer-email">{demoUser.email}</span>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

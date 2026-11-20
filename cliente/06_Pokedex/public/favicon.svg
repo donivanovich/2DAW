@@ -1,16 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <!-- Fondo blanco -->
-  <circle cx="50" cy="50" r="48" fill="#ffffff" stroke="#000000" stroke-width="4"></circle>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="topDome" x1="16" y1="6" x2="48" y2="34" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF4B2B" />
+      <stop offset="100%" stop-color="#D92608" />
+    </linearGradient>
+    <linearGradient id="bottomDome" x1="32" y1="32" x2="32" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+    <clipPath id="ballClip">
+      <circle cx="32" cy="32" r="28" />
+    </clipPath>
+  </defs>
 
-  <!-- Parte superior roja -->
-  <path d="M2,50 A48,48 0 0,1 98,50 L50,50 Z" fill="#ff1c1c"></path>
+  <g clip-path="url(#ballClip)">
+    <!-- Hemisferio inferior -->
+    <rect x="0" y="32" width="64" height="32" fill="url(#bottomDome)" />
 
-  <!-- Línea central -->
-  <rect x="2" y="47" width="96" height="6" fill="#000000"></rect>
+    <!-- Hemisferio superior -->
+    <rect x="0" y="0" width="64" height="32" fill="url(#topDome)" />
 
-  <!-- Botón exterior -->
-  <circle cx="50" cy="50" r="12" fill="#ffffff" stroke="#000000" stroke-width="4"></circle>
+    <!-- Brillo minimalista superior -->
+    <path
+      d="M15 17C18.2 12.2 23.8 9.2 30 9"
+      stroke="#FFFFFF"
+      stroke-width="3.5"
+      stroke-linecap="round"
+      stroke-opacity="0.55"
+    />
 
-  <!-- Botón interior -->
-  <circle cx="50" cy="50" r="5" fill="#000000"></circle>
+    <!-- Franja central -->
+    <rect x="0" y="28.5" width="64" height="7" fill="#0F172A" />
+  </g>
+
+  <!-- Contorno exterior definido (visible en pestañas claras y oscuras) -->
+  <circle cx="32" cy="32" r="28" stroke="#0F172A" stroke-width="5" />
+
+  <!-- Botón central -->
+  <circle cx="32" cy="32" r="11" fill="#FFFFFF" stroke="#0F172A" stroke-width="5" />
+  <circle cx="32" cy="32" r="4.5" fill="#0F172A" fill-opacity="0.18" />
 </svg>
