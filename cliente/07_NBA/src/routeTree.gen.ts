@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as HomeRouteImport } from './routes/home'
+import { Route as BuildRouteImport } from './routes/build'
 import { Route as SeasonTeamsAbbreviationRouteRouteImport } from './routes/$season/teams/$abbreviation/route'
 import { Route as SeasonTeamsAbbreviationIndexRouteImport } from './routes/$season/teams/$abbreviation/index'
 import { Route as SeasonTeamsAbbreviationSlugRouteImport } from './routes/$season/teams/$abbreviation/$slug'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const HomeRoute = HomeRouteImport.update({
   id: '/home',
   path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuildRoute = BuildRouteImport.update({
+  id: '/build',
+  path: '/build',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SeasonTeamsAbbreviationRouteRoute =
@@ -46,6 +52,7 @@ const SeasonTeamsAbbreviationSlugRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/build': typeof BuildRoute
   '/home': typeof HomeRoute
   '/$season/teams/$abbreviation': typeof SeasonTeamsAbbreviationRouteRouteWithChildren
   '/$season/teams/$abbreviation/$slug': typeof SeasonTeamsAbbreviationSlugRoute
@@ -53,6 +60,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/build': typeof BuildRoute
   '/home': typeof HomeRoute
   '/$season/teams/$abbreviation/$slug': typeof SeasonTeamsAbbreviationSlugRoute
   '/$season/teams/$abbreviation': typeof SeasonTeamsAbbreviationIndexRoute
@@ -60,6 +68,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/build': typeof BuildRoute
   '/home': typeof HomeRoute
   '/$season/teams/$abbreviation': typeof SeasonTeamsAbbreviationRouteRouteWithChildren
   '/$season/teams/$abbreviation/$slug': typeof SeasonTeamsAbbreviationSlugRoute
@@ -69,6 +78,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/build'
     | '/home'
     | '/$season/teams/$abbreviation'
     | '/$season/teams/$abbreviation/$slug'
@@ -76,12 +86,14 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/build'
     | '/home'
     | '/$season/teams/$abbreviation/$slug'
     | '/$season/teams/$abbreviation'
   id:
     | '__root__'
     | '/'
+    | '/build'
     | '/home'
     | '/$season/teams/$abbreviation'
     | '/$season/teams/$abbreviation/$slug'
@@ -90,6 +102,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BuildRoute: typeof BuildRoute
   HomeRoute: typeof HomeRoute
   SeasonTeamsAbbreviationRouteRoute: typeof SeasonTeamsAbbreviationRouteRouteWithChildren
 }
@@ -101,6 +114,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/build': {
+      id: '/build'
+      path: '/build'
+      fullPath: '/build'
+      preLoaderRoute: typeof BuildRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/home': {
@@ -152,6 +172,7 @@ const SeasonTeamsAbbreviationRouteRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BuildRoute: BuildRoute,
   HomeRoute: HomeRoute,
   SeasonTeamsAbbreviationRouteRoute:
     SeasonTeamsAbbreviationRouteRouteWithChildren,
